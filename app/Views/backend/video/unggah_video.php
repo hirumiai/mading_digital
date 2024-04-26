@@ -51,21 +51,42 @@
                         <div class="card-header">
                             <i class="fas fa-upload"></i> Unggah Video
                         </div>
+                        <?php
+                        $session = session();
+                        if ($session->getFlashdata('errors') == 'wrong_rule') {
+                            echo "<div class='alert alert-danger font-weight-bold text-center'>
+                                tolong isi form dengan benar
+                                </div>";
+                        } else if ($session->getFlashdata('errors') == 'type_file') {
+                            echo "<div class='alert alert-danger font-weight-bold text-center'>
+                                Hanya format video yang diperbolehkan
+                                </div>";
+                        } else if ($session->getFlashdata('errors') == 'nothing') {
+                            echo "<div class='alert alert-danger font-weight-bold text-center'>
+                                Silahkan pilih file video
+                                </div>";
+                        } else if ($session->getFlashdata('errors') == 'no_file_uploaded') {
+                            echo "<div class='alert alert-danger font-weight-bold text-center'>
+                                Tidak ada file yang diupload
+                                </div>";
+                        }
+
+                        ?>
                         <div class="card-body">
-                            <form action="" method="post" enctype="multipart/form-data">
+                            <form action="<?php echo site_url('unggah_video/process') ?>" method="post" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label for="nama_video">Nama video </label>
-                                    <input type="text" class="form-control" id="nama_video" name="nama_video" placeholder="Masukan Nama Video">
+                                    <input type="text" class="form-control" id="nama_video" name="nama_video" placeholder="Masukan Nama Video" require>
                                 </div>
                                 <div class="form-group">
                                     <label for="file_video">File Video</label>
-                                    <input type="file" class="form-control-file" id="file_video" name="file_video">
+                                    <input type="file" class="form-control-file" id="file_video" name="file_video" require>
                                 </div>
                                 <div class="d-flex justify-content-end flex-column">
-                                    <button class="btn btn-primary mb-2" type="submit" name="video_status" value="draft">
+                                    <button class="btn btn-primary mb-2" type="submit" name="status_video" value="draft">
                                         Draft
                                     </button>
-                                    <button class="btn btn-success" type="submit" name="video_status" value="publikasi">
+                                    <button class="btn btn-success" type="submit" name="status_video" value="publish">
                                         Publish
                                     </button>
                                 </div>

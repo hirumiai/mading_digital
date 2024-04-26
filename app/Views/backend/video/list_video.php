@@ -57,37 +57,50 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 1%;">NO</th>
-                                        <th>Nama Video</th>
+                                        <th style="width: 10%;">Nama Video</th>
+                                        <th style="width: 50%;">Status</th>
                                         <th>Video</th>
-                                        <th>Status</th>
                                         <th style="width: 15%;">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>
-                                            Nama Video Disini
-                                        </td>
-                                        <td>
-                                            Ini adalah video
-                                        </td>
-                                        <td>
-                                            Publish
-                                        </td>
-                                        <td>
-                                            <div class="btn-group " role="group" aria-label="Action buttons">
-                                                <a href="" class="btn btn-sm btn-success mr-1" target="_blank"><i class="nav-icon fas fa-eye"></i></a>
-                                                <a href="" class="btn btn-sm btn-warning mr-1"><i class="nav-icon fas fa-edit"></i></a>
-                                                <form action="" method="POST">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <button type="submit" class="btn btn-sm btn-danger mr-1"><i class="nav-icon fas fa-trash"></i></button>
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    <?php
+                                    $page = isset($_GET['page']) ? $_GET['page'] : 1;
+                                    $i = 1 + (5 * ($page - 1)) ?>
+                                    <?php foreach ($videos as $data) : ?>
+                                        <tr>
+                                            <td><?php echo $i++ ?></td>
+                                            <td><?php echo $data['nama_video'] ?></td>
+                                            <td>
+                                                <?php if ($data['status_video'] === 'publish') : ?>
+                                                    <span class="badge badge-success">Publish</span>
+                                                <?php else : ?>
+                                                    <span class="badge badge-danger">Draft</span>
+                                                <?php endif; ?>
+                                            </td>
+                                            <td>
+                                                <video width="100%" controls>
+                                                    <source src="<?php echo base_url() . 'assets/video/' . $data['file_video'] ?>" type="video/mp4">
+                                                    Your browser does not support HTML video.
+                                                </video>
+                                            </td>
+                                            <td>
+                                                <div class="btn-group " role="group" aria-label="Action buttons">
+                                                    <a href="" class="btn btn-sm btn-success mr-1" target="_blank"><i class="nav-icon fas fa-eye"></i></a>
+                                                    <a href="" class="btn btn-sm btn-warning mr-1"><i class="nav-icon fas fa-edit"></i></a>
+                                                    <form action="" method="POST">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <button type="submit" class="btn btn-sm btn-danger mr-1"><i class="nav-icon fas fa-trash"></i></button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
+                            <div class="pt-2">
+                                <?php echo $pager->links('default', 'my_paginate') ?>
+                            </div>
                         </div>
                     </div>
                 </div>
