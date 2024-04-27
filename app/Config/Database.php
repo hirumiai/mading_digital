@@ -29,7 +29,7 @@ class Database extends Config
         'hostname'     => 'localhost',
         'username'     => '',
         'password'     => '',
-        'database'     => '',
+        'database'     =>  '',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
         'pConnect'     => false,
@@ -44,6 +44,7 @@ class Database extends Config
         'port'         => 3306,
         'numberNative' => false,
     ];
+    //
 
     /**
      * This database connection is used when
