@@ -32,6 +32,9 @@
                     <div class="row mb-2">
                         <div class="col-sm-6">
                             <h1 class="m-0">Video</h1>
+                            <a href="<?php echo site_url('list_video') ?>" class="btn btn-success mt-2">
+                                <i class="fas fa-arrow-left"></i> Kembali
+                            </a>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">

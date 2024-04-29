@@ -24,4 +24,28 @@ class VideoModel extends Model
         return $this->db->table('mading_video')
             ->insert($data);
     }
+
+
+    public function getNumberRowVideos()
+    {
+        return $this->db->table('mading_video')
+            ->get()
+            ->getNumRows();
+    }
+
+    public function getDataVideoById($id)
+    {
+        return $this->db->table('mading_video')
+            ->where('id_video', $id)
+            ->get()
+            ->getRowObject();
+    }
+
+
+    public function updateVideoById($id, $data)
+    {
+        return $this->db->table('mading_video')
+            ->where('id_video', $id)
+            ->update($data);
+    }
 }

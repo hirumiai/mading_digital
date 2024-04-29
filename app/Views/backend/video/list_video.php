@@ -86,11 +86,14 @@
                                             </td>
                                             <td>
                                                 <div class="btn-group " role="group" aria-label="Action buttons">
-                                                    <a href="" class="btn btn-sm btn-success mr-1" target="_blank"><i class="nav-icon fas fa-eye"></i></a>
-                                                    <a href="" class="btn btn-sm btn-warning mr-1"><i class="nav-icon fas fa-edit"></i></a>
+                                                    <a href="<?php echo site_url('update_video/' . $data['id_video']) ?>" class="btn btn-sm btn-warning mr-1">
+                                                        <i class="nav-icon fas fa-edit"></i>
+                                                    </a>
                                                     <form action="" method="POST">
                                                         <input type="hidden" name="_method" value="DELETE">
-                                                        <button type="submit" class="btn btn-sm btn-danger mr-1"><i class="nav-icon fas fa-trash"></i></button>
+                                                        <button type="submit" class="btn btn-sm btn-danger mr-1">
+                                                            <i class="nav-icon fas fa-trash"></i>
+                                                        </button>
                                                     </form>
                                                 </div>
                                             </td>
