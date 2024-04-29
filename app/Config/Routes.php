@@ -25,6 +25,8 @@ $routes->post('unggah_video/process', 'UnggahVideoController::actionUnggahVideo'
 $routes->get('update_video/(:any)', 'UpdateVideoController::index/$1');
 $routes->put('update_video/process', 'UpdateVideoController::actionUpdateVideo');
 
+// backend : delete video
+$routes->delete('delete/video/process/(:any)', 'VideoController::actionDelete/$1');
 
 // backend : list agenda
 $routes->get('/list_agenda', 'AgendaController::index');

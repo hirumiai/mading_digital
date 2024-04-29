@@ -48,4 +48,11 @@ class VideoModel extends Model
             ->where('id_video', $id)
             ->update($data);
     }
+
+    public function deleteVideoById($id)
+    {
+        return $this->db->table('mading_video')
+            ->where('id_video', $id)
+            ->delete();
+    }
 }

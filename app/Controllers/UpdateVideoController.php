@@ -4,10 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\VideoModel;
-use CodeIgniter\HTTP\ResponseInterface;
-use PhpParser\Node\Stmt\TryCatch;
 
-use function PHPUnit\Framework\throwException;
 
 class UpdateVideoController extends BaseController
 {
@@ -41,41 +38,43 @@ class UpdateVideoController extends BaseController
             'nama_video' => 'required',
         ]);
 
+        // menjalankan rule 
+
+        if (!$validate->withRequest($this->request)->run()) {
+            // jika validasi gagal 
+            $session->setFlashdata('errors', 'wrong_rule');
+            return redirect()->to('update_video/' . $id_video);
+        }
 
         // get file from input form
         $dataVideo = $this->request->getFile('file_video');
 
+        // pengguna megupdate video
+        if ($dataVideo->isValid()) { // if pengguna upload video
+            // upload video 
+            $fileUploaded = $this->uploadVideo($dataVideo);
 
-        try {
-
-            // menjalankan rule 
-            if (!$validate->withRequest($this->request)->run()) {
-                // jika validasi gagal 
-                $session->setFlashdata('errors', 'wrong_rule');
+            if (!$fileUploaded) {
+                session()->setFlashdata('errors', 'type_file');
                 return redirect()->to('update_video/' . $id_video);
             }
 
-            if ($dataVideo->isValid()) { // if pengguna upload video
-                // upload video 
-                $fileUploaded = $this->uploadVideo($dataVideo, $id_video);
+            // delete existing video in assets file 
+            $this->deleteVideoExsist($id_video);
 
-                // delete existing video in assets file 
-                $this->deleteVideoExsist($id_video);
+            // Get input data
+            $data = [
+                'nama_video' => esc($this->request->getPost('nama_video')),
+                'status_video' => $this->request->getPost('status_video'),
+                'file_video' => $fileUploaded
+            ];
 
-                // Get input data
-                $data = [
-                    'nama_video' => esc($this->request->getPost('nama_video')),
-                    'status_video' => $this->request->getPost('status_video'),
-                    'file_video' => $fileUploaded
-                ];
+            // update data into the database
+            $this->videoModel->updateVideoById($id_video, $data);
 
-                // update data into the database
-                $this->videoModel->updateVideoById($id_video, $data);
-
-                // Redirect to the list of videos
-                return redirect()->to('list_video');
-            }
-
+            // Redirect to the list of videos
+            return redirect()->to('list_video');
+        } else {
             // jika pengguna tidak upload file video atau memperbarui video 
             // Get input data
             $data = [
@@ -85,17 +84,16 @@ class UpdateVideoController extends BaseController
 
             // update  data into the database
             $this->videoModel->updateVideoById($id_video, $data);
-
             // Redirect to the list of videos
             return redirect()->to('list_video');
-        } catch (\Throwable $e) { // jika tidak upload file video
-            $session->setFlashdata('errors', $e->getMessage());
-            return redirect()->to('update_video/' . $id_video);
         }
+
+        $session->setFlashdata('errors', 'upload_error');
+        return redirect()->to('update_video/' . $id_video);
     }
 
 
-    private function uploadVideo($fileVideo, $id_video)
+    private function uploadVideo($fileVideo)
     {
 
         // Define upload directory
@@ -105,12 +103,11 @@ class UpdateVideoController extends BaseController
         $allowedTypes = ['mp4'];
         $fileExtension = $fileVideo->guessExtension();
         if (!in_array($fileExtension, $allowedTypes)) {
-            session()->setFlashdata('errors', 'type_file');
-            return redirect()->to('update_video/' . $id_video);
+            return false;
         }
 
         // Generate unique filename
-        $videoName =  md5($fileVideo->getClientName()) . '.' . $fileExtension;
+        $videoName = (string)md5($fileVideo->getClientName()) . '.' . $fileExtension;
 
         // Move uploaded file to upload directory
         $fileVideo->move($uploadPath, $videoName);

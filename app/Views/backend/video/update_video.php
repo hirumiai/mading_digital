@@ -60,11 +60,11 @@
                             echo "<div class='alert alert-danger font-weight-bold text-center'>
                                 tolong isi form dengan benar
                                 </div>";
-                        } else if ($session->getFlashdata('errors') == 'type_file') {
+                        } else if ($session->errors == 'type_file') {
                             echo "<div class='alert alert-danger font-weight-bold text-center'>
                                 Hanya format video yang diperbolehkan
                                 </div>";
-                        } else if ($session->getFlashdata('errors') == 'nothing') {
+                        } else if ($session->errors == 'nothing') {
                             echo "<div class='alert alert-danger font-weight-bold text-center'>
                                 Silahkan pilih file video
                                 </div>";

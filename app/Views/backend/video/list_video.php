@@ -89,12 +89,36 @@
                                                     <a href="<?php echo site_url('update_video/' . $data['id_video']) ?>" class="btn btn-sm btn-warning mr-1">
                                                         <i class="nav-icon fas fa-edit"></i>
                                                     </a>
-                                                    <form action="" method="POST">
+
+                                                    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="deleteModalLabel">Konfirmasi</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    Apakah anda yakin menghapus video ini ?
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button id="confirmDeleteButton" type="button" class="btn btn-danger">Ya</button>
+                                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Tidak</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Delete Form -->
+                                                    <form id="deleteForm" action="<?php echo site_url('delete/video/process/' . $data['id_video']) ?>" method="POST">
                                                         <input type="hidden" name="_method" value="DELETE">
-                                                        <button type="submit" class="btn btn-sm btn-danger mr-1">
+                                                        <button type="button" class="btn btn-sm btn-danger mr-1" data-toggle="modal" data-target="#deleteModal">
                                                             <i class="nav-icon fas fa-trash"></i>
                                                         </button>
                                                     </form>
+
+
                                                 </div>
                                             </td>
                                         </tr>
@@ -132,7 +156,15 @@
         // auto change date by year for footer
         const thisYear = new Date();
         document.getElementById('tanggal').innerHTML = thisYear.getFullYear();
+
+
+        // delete button 
+
+        document.getElementById('confirmDeleteButton').addEventListener('click', function() {
+            document.getElementById('deleteForm').submit();
+        });
     </script>
+
 </body>
 
 </html>
