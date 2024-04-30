@@ -38,3 +38,7 @@ $routes->get('/unggah_angenda', 'UngggahAgendaController::index');
 
 // backend : logout 
 $routes->get('/logout', 'AuthController::index');
+
+
+// backend : get All video 
+$routes->get('videos/get', 'HomeController::getVideo');

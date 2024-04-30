@@ -11,6 +11,9 @@
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
+
+
+
      <div class="wrapper">
           <!-- import preloader -->
           <?php include(APPPATH . 'Views/templates/backend/preloader.php') ?>
@@ -119,6 +122,8 @@
      <!-- import js  -->
 
      <?php include(APPPATH . 'Views/imports/js.php') ?>
+
+
 </body>
 
 </html>

@@ -100,7 +100,9 @@ class UpdateVideoController extends BaseController
         $uploadPath = './assets/video';
 
         // Validate file type
-        $allowedTypes = ['mp4'];
+        $allowedTypes = [
+            'mov', 'mpeg', 'mp3', 'avi', 'mp4'
+        ];
         $fileExtension = $fileVideo->guessExtension();
         if (!in_array($fileExtension, $allowedTypes)) {
             return false;
