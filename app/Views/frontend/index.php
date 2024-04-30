@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mading Digital DISPUSIP</title>
     <link rel="stylesheet" href="<?php echo base_url() . 'assets/dist/css/my_own_style.css' ?>" />
+
+
+    <!-- boostrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
     <!-- jam -->
     <script type="text/javascript">
         window.onload = function() {
@@ -43,9 +48,11 @@
         </div>
     </nav>
 
-    <div class="video">
-        <iframe width="1007" height="566" src="https://www.youtube.com/embed/videoseries?si=suxfC4oGlQe8IOHu&amp;list=PLjLrD-adY17AbqSMF0tgD4376UluPpPwK&autoplay=1&loop=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web share" allowfullscreen>
-        </iframe>
+    <div class="video mt-4">
+        <video width="1007" height="566" id="myVideo" controls autoplay muted>
+            <source src="" id="mp4Source" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
     </div>
 
     <div class="runingtext">
@@ -60,6 +67,49 @@
     </div>
 
     <div id="jam"></div>
+    <!-- js boostrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- ajax -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        let count = 0;
+        let player = document.getElementById('myVideo');
+        let mp4Vid = document.getElementById('mp4Source');
+        let playList = [];
+
+
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch(`http://localhost:8080/videos/get`)
+                // fetch datat to get all the video and then store in playlist
+                .then(response => response.json())
+                .then(data => {
+                    playList = Object.values(data);
+                    loadFirstVideo();
+                });
+        });
+
+        player.addEventListener('ended', myHandler, false);
+
+        function loadFirstVideo() {
+            if (playList.length > 0) {
+                $(mp4Vid).attr('src', "./assets/video/" + playList[0]);
+                player.load();
+                player.play();
+            }
+        }
+
+        function myHandler() {
+            count++;
+            if (count < playList.length) {
+                $(mp4Vid).attr('src', "./assets/video/" + playList[count]);
+                player.load();
+                player.play();
+            } else {
+                count = 0; // Reset count to loop the playlist
+                loadFirstVideo();
+            }
+        }
+    </script>
 </body>
 
 </html>

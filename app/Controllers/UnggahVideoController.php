@@ -45,27 +45,20 @@ class UnggahVideoController extends BaseController
             return redirect()->to('/unggah_video');
         }
 
-        // Define upload file 
-        $uploadPath = './assets/video';
+        // upload file video 
+        $nameVideo =  $this->uploadVideo($fileVideo);
 
-        // Define allowed file types
-        $allowedTypes = ['mp4'];
-        $fileExtension = $fileVideo->getExtension();
 
-        // Check if the file type is allowed
-        if (!in_array($fileExtension, $allowedTypes)) {
-            $session->setFlashdata('errors', 'type_file');
-            return redirect()->to('/unggah_video');
+        if (!$nameVideo) {
+            session()->setFlashdata('errors', 'type_file');
+            return redirect()->to('unggah_video');
         }
-
-        // Move the uploaded file to the upload path
-        $fileVideo->move($uploadPath);
 
         // Get input data
         $data = [
             'nama_video' => esc($this->request->getPost('nama_video')),
             'status_video' => $this->request->getPost('status_video'),
-            'file_video' => $fileVideo->getClientName()
+            'file_video' => $nameVideo
         ];
 
         // Insert data into the database
@@ -73,5 +66,28 @@ class UnggahVideoController extends BaseController
 
         // Redirect to the list of videos
         return redirect()->to('list_video');
+    }
+
+
+    private function uploadVideo($fileVideo)
+    {
+
+        // Define upload directory
+        $uploadPath = './assets/video';
+
+        // Validate file type
+        $allowedTypes = ['mov', 'mpeg', 'mp3', 'avi', 'mp4'];
+        $fileExtension = $fileVideo->guessExtension();
+        if (!in_array($fileExtension, $allowedTypes)) {
+            return false;
+        }
+
+        // Generate unique filename
+        $videoName = (string)md5($fileVideo->getClientName()) . '.' . $fileExtension;
+
+        // Move uploaded file to upload directory
+        $fileVideo->move($uploadPath, $videoName);
+
+        return $videoName;
     }
 }

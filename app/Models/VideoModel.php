@@ -55,4 +55,12 @@ class VideoModel extends Model
             ->where('id_video', $id)
             ->delete();
     }
+
+    public function getAllVideoOnly()
+    {
+        return $this->db->table('mading_video')
+            ->select('file_video')
+            ->get()
+            ->getResultObject();
+    }
 }
