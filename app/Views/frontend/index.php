@@ -7,6 +7,8 @@
     <title>Mading Digital DISPUSIP</title>
     <link rel="stylesheet" href="<?php echo base_url() . 'assets/dist/css/my_own_style.css' ?>" />
 
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- boostrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -41,15 +43,21 @@
 </head>
 
 <body>
+
     <nav class="navbar">
-        <a href=""><img src="img/logo2.png" alt="" /></a>
+
+        <a href="= ''"> <img src="<?php echo base_url() . '/public/assets/img/logo/logo2.png' ?>" alt="logo" />
+
+            <a href="<?= base_url('login') ?>"> <i class="fa-regular fa-user" id="admin-login"> </i> </a>
+
+            <!--<a href=""><img src="/public/assets/img/logo/logo2.png" alt="ini logo" /></a>
         <div class="dispusip">
-            Dinas Perpustakaan dan Kearsipan Kota Pekanbaru
-        </div>
+            Mading Digital Dinas Perpustakaan dan Kearsipan Kota Pekanbaru
+        </div>-->
     </nav>
 
     <div class="video mt-4">
-        <video width="1007" height="566" id="myVideo" controls autoplay muted>
+        <video width="1278.5" height="600" id="myVideo" controls autoplay>
             <source src="" id="mp4Source" type="video/mp4">
             Your browser does not support the video tag.
         </video>
@@ -80,7 +88,7 @@
 
         document.addEventListener("DOMContentLoaded", function() {
             fetch(`http://localhost:8080/videos/get`)
-                // fetch datat to get all the video and then store in playlist
+                // fetch data to get all the video and then store in playlist
                 .then(response => response.json())
                 .then(data => {
                     playList = Object.values(data);
