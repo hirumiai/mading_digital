@@ -17,7 +17,11 @@ class UpdateVideoController extends BaseController
 
     public function index($id)
     {
-
+        // ceck status login
+        $session = session();
+        if (!$session->get('isLogin')) {
+            return redirect()->to('/login');
+        }
         $data = [
             'data_video' => $this->videoModel->getDataVideoById($id)
         ];

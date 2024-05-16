@@ -15,6 +15,13 @@ class DashboardController extends BaseController
     }
     public function index()
     {
+
+        // ceck status login
+        $session = session();
+        if (!$session->get('isLogin')) {
+            return redirect()->to('/login');
+        }
+
         $data = [
             'number_rows' => $this->videoModel->getNumberRowVideos()
         ];

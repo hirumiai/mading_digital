@@ -9,7 +9,11 @@ use CodeIgniter\Router\RouteCollection;
 // frontend : index 
 $routes->get('/', 'HomeController::index');
 
+// login routes 
+$routes->get('login', 'AuthController::index');
 
+// login routes process validation
+$routes->post('login/process', 'AuthController::loginProcess');
 
 // backend :  dashboard 
 $routes->get('/dashboard', 'DashboardController::index');
@@ -36,8 +40,10 @@ $routes->get('/unggah_angenda', 'UngggahAgendaController::index');
 
 
 
+
+
 // backend : logout 
-$routes->get('/logout', 'AuthController::index');
+$routes->get('/logout', 'AuthController::logout');
 
 
 // backend : get All video 
