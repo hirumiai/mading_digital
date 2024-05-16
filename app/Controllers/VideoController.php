@@ -15,6 +15,11 @@ class VideoController extends BaseController
     }
     public function index()
     {
+        // ceck status login
+        $session = session();
+        if (!$session->get('isLogin')) {
+            return redirect()->to('/login');
+        }
         $data = [
             'videos' => $this->videoModel->getAllVideo(),
             'pager' => $this->videoModel->pager

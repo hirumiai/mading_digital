@@ -17,6 +17,11 @@ class UnggahVideoController extends BaseController
 
     public function index()
     {
+        // ceck status login
+        $session = session();
+        if (!$session->get('isLogin')) {
+            return redirect()->to('/login');
+        }
         return view('backend/video/unggah_video');
     }
 
