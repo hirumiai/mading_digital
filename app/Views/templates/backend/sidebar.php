@@ -11,10 +11,10 @@
                   <nav class="mt-2">
                       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                           <li class="nav-item">
-                              <a href="<?php echo site_url('/dashboard') ?>" class="nav-link">
+                              <a href="<?php echo site_url('/') ?>" class="nav-link">
                                   <i class="nav-icon fas fa-tachometer-alt"></i>
                                   <p>
-                                      Dashboard
+                                      Home
                                   </p>
                               </a>
                           </li>
@@ -42,6 +42,7 @@
                                   </li>
                               </ul>
                           </li>
+                          <!--
                           <li class="nav-item">
                               <a href="#" class="nav-link">
                                   <i class="nav-icon fas fa-chart-pie"></i>
@@ -64,7 +65,8 @@
                                       </a>
                                   </li>
                               </ul>
-                          </li>
+                          </li> -->
+                          <!--
                           <li class="nav-item">
                               <a href="<?php echo site_url('logout') ?>" class="nav-link">
                                   <i class="nav-icon fas fa-sign-out-alt"></i>
@@ -72,7 +74,7 @@
                                       Log Out
                                   </p>
                               </a>
-                          </li>
+                          </li> -->
                       </ul>
                   </nav>
               </div>
