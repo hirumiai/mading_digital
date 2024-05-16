@@ -14,7 +14,7 @@
 # ENVIRONMENT
 #--------------------------------------------------------------------
 
-# CI_ENVIRONMENT = production
+CI_ENVIRONMENT = development
 
 #--------------------------------------------------------------------
 # APP
@@ -30,9 +30,9 @@
 # DATABASE
 #--------------------------------------------------------------------
 
-# database.default.hostname = localhost
-# database.default.database = ci4
-# database.default.username = root
+ database.default.hostname = localhost
+ database.default.database = mading
+ database.default.username = root
 # database.default.password = root
 # database.default.DBDriver = MySQLi
 # database.default.DBPrefix =
@@ -89,7 +89,7 @@
 # ENCRYPTION
 #--------------------------------------------------------------------
 
-# encryption.key =
+encryption.key = hex2bin:cb8753641080d6d2b996fa1af09a576e1554d47a7d95d955dc0f7689e7e5ba12
 # encryption.driver = OpenSSL
 # encryption.blockSize = 16
 # encryption.digest = SHA512
